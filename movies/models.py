@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from datetime import date
 
 
@@ -10,7 +11,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "Categories"
@@ -25,7 +26,7 @@ class Actor(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name = "Actors and directors"
         verbose_name_plural = "Actors and directors"
@@ -39,7 +40,7 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name = "Genre"
         verbose_name_plural = "Genres"
@@ -72,10 +73,14 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+    def get_absolute_url(self):
+        return reverse('movie_detail', kwargs={"slug": self.url})
+
     class Meta:
         verbose_name = "Movie"
         verbose_name_plural = "Movies"
+
 
 class MovieShots(models.Model):
 
@@ -86,10 +91,11 @@ class MovieShots(models.Model):
 
     def __str__(self):
         return self.title
-    
+
     class Meta:
         verbose_name = "Shot from the movie"
         verbose_name_plural = "Shots from the movie"
+
 
 class RatingStar(models.Model):
 
@@ -97,10 +103,11 @@ class RatingStar(models.Model):
 
     def __str__(self):
         return self.value
-    
+
     class Meta:
         verbose_name = "Rating star"
         verbose_name_plural = "Rating stars"
+
 
 class Rating(models.Model):
 
@@ -108,13 +115,13 @@ class Rating(models.Model):
     star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="star")
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, verbose_name="movie")
 
-
     def __str__(self):
         return f"{self.star} - {self.movie}"
-    
+
     class Meta:
         verbose_name = "Rating"
         verbose_name_plural = "Ratings"
+
 
 class Reviews(models.Model):
 
@@ -128,7 +135,7 @@ class Reviews(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.movie}"
-    
+
     class Meta:
         verbose_name = "Review"
         verbose_name_plural = "Reviews"
