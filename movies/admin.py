@@ -9,7 +9,9 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 class MovieAdminForm(forms.ModelForm):
-    description = forms.CharField(widget=CKEditorUploadingWidget(), label="Description")
+    description = forms.CharField(
+        widget=CKEditorUploadingWidget(), label="Description"
+        )
 
     class Meta:
         model = Movie
@@ -126,7 +128,9 @@ class ActorAdmin(admin.ModelAdmin):
     readonly_fields = ("get_image", )
 
     def get_image(self, obj):
-        return mark_safe(f"<img src='{ obj.image.url }' width='50' height='50'")
+        return mark_safe(
+            f"<img src='{ obj.image.url }' width='50' height='50'"
+            )
 
     get_image.short_description = "Image"
 
@@ -144,7 +148,9 @@ class MovieShotsAdmin(admin.ModelAdmin):
     readonly_fields = ("get_image", )
 
     def get_image(self, obj):
-        return mark_safe(f"<img src='{ obj.image.url }' width='50' height='50'")
+        return mark_safe(
+            f"<img src='{ obj.image.url }' width='50' height='50'"
+            )
 
     get_image.short_description = "Image"
 
